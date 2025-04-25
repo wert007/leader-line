@@ -454,11 +454,11 @@
     bBox.top += top;
     bBox.bottom += top;
 
-    let parentX = props.options.parent.getBoundingClientRect().x;
-    let parentY = props.options.parent.getBoundingClientRect().y;
-    console.log("parentX and y:", parentX, parentY);
-    bBox.left -= parentX;
-    bBox.top -= parentY;
+    // let parentX = props.options.parent.getBoundingClientRect().x;
+    // let parentY = props.options.parent.getBoundingClientRect().y;
+    // console.log("parentX and y:", parentX, parentY);
+    // bBox.left -= parentX;
+    // bBox.top -= parentY;
 
     return bBox;
   }
@@ -788,6 +788,8 @@
       marker.setAttribute('orient', orient);
       if (svg2SupportedReverse === false) { shape.transform.baseVal.clear(); }
     }
+
+    console.log("This is a viewbox:", marker.viewBox.baseVal, bBox, viewBox);
 
     viewBox = marker.viewBox.baseVal;
     if (reverseView) {
@@ -1510,11 +1512,11 @@
     function getSocketXY(bBox, socketId) {
       let bBoxP = { ...bBox };
 
-      let parentX = props.options.parent.getBoundingClientRect().x;
-      let parentY = props.options.parent.getBoundingClientRect().y;
-      console.log("getsocket parentX and y:", parentX, parentY);
-      bBoxP.left -= parentX;
-      bBoxP.top -= parentY;
+      // let parentX = props.options.parent.getBoundingClientRect().x;
+      // let parentY = props.options.parent.getBoundingClientRect().y;
+      // console.log("getsocket parentX and y:", parentX, parentY);
+      // bBoxP.left -= parentX;
+      // bBoxP.top -= parentY;
       var socketXY = (
         socketId === SOCKET_TOP ? { x: bBoxP.left + bBoxP.width / 2, y: bBoxP.top } :
           socketId === SOCKET_RIGHT ? { x: bBoxP.right, y: bBoxP.top + bBoxP.height / 2 } :
@@ -2101,6 +2103,8 @@
       var value;
       if ((value = curBBox[boxKey]) !== aplBBox[boxKey]) {
         traceLog.add(boxKey); // [DEBUG/]
+        console.log("VALUE BEFORE FIX:", value);
+        viewBox[boxKey] = aplBBox[boxKey] = value;
         if (boxKey == 'x') {
           value -= props.options.parent?.getBoundingClientRect().x ?? 0;
           console.log("Fixed parent offset here");
@@ -2110,7 +2114,6 @@
         }
         console.log("THIS IS ALSO INTERESTING:", boxKey, value, BBOX_PROP[boxKey]);
 
-        viewBox[boxKey] = aplBBox[boxKey] = value;
         styles[BBOX_PROP[boxKey]] = value +
           (boxKey === 'x' || boxKey === 'y' ? props.bodyOffset[boxKey] : 0) + 'px';
         updated = true;
