@@ -789,7 +789,7 @@
       if (svg2SupportedReverse === false) { shape.transform.baseVal.clear(); }
     }
 
-    console.log("This is a viewbox:", marker.viewBox.baseVal, bBox, viewBox);
+    // console.log("This is a viewbox:", marker.viewBox.baseVal, bBox, viewBox);
 
     viewBox = marker.viewBox.baseVal;
     if (reverseView) {
@@ -870,7 +870,7 @@
 
   function setStat(props, container, key, value, eventHandlers/* [DEBUG] */, log/* [/DEBUG] */) {
     if (value !== container[key]) {
-      console.log("Setting", key, "to", JSON.stringify(value));
+      // console.log("Setting", key, "to", JSON.stringify(value));
       traceLog.add(log || key + '=%s', value); // [DEBUG/]
       container[key] = value;
       if (eventHandlers) {
@@ -1122,10 +1122,10 @@
       svg.style.visibility = 'hidden';
     }
 
-    console.log("props", props);
+    // console.log("props", props);
     let base = props.options.parent ?? baseDocument.body;
-    console.log("base", base);
-    console.log("svg", svg);
+    // console.log("base", base);
+    // console.log("svg", svg);
     base.appendChild(svg);
 
     // label (after appendChild(svg), bBox is used)
@@ -2103,16 +2103,16 @@
       var value;
       if ((value = curBBox[boxKey]) !== aplBBox[boxKey]) {
         traceLog.add(boxKey); // [DEBUG/]
-        console.log("VALUE BEFORE FIX:", value);
+        // console.log("VALUE BEFORE FIX:", value);
         viewBox[boxKey] = aplBBox[boxKey] = value;
         if (boxKey == 'x') {
           value -= props.options.parent?.getBoundingClientRect().x ?? 0;
-          console.log("Fixed parent offset here");
+          // console.log("Fixed parent offset here");
         } else if (boxKey == 'y') {
           value -= props.options.parent?.getBoundingClientRect().y ?? 0;
-          console.log("Fixed parent offset here");
+          // console.log("Fixed parent offset here");
         }
-        console.log("THIS IS ALSO INTERESTING:", boxKey, value, BBOX_PROP[boxKey]);
+        // console.log("THIS IS ALSO INTERESTING:", boxKey, value, BBOX_PROP[boxKey]);
 
         styles[BBOX_PROP[boxKey]] = value +
           (boxKey === 'x' || boxKey === 'y' ? props.bodyOffset[boxKey] : 0) + 'px';
@@ -3389,7 +3389,7 @@
    * @param {Object} [options] - Initial options.
    */
   function LeaderLine(start, end, options) {
-    console.log("ctor options", options);
+    // console.log("ctor options", options);
     var props = {
       // Initialize properties as array.
       options: {
@@ -4184,11 +4184,11 @@
           curVBBBox.width = curStats.bBoxRel.width;
           curVBBBox.height = curStats.bBoxRel.height;
           ['x', 'y', 'width', 'height'].forEach(function (boxKey) {
-            console.log("this is less interesting")
+            // console.log("this is less interesting")
             if ((value = curVBBBox[boxKey]) !== aplVBBBox[boxKey]) {
               traceLog.add(boxKey); // [DEBUG/]
               viewBox[boxKey] = aplVBBBox[boxKey] = value;
-              console.log("THIS IS INTERESTING:", boxKey, value, attachProps.bodyOffset[boxKey], BBOX_PROP[boxKey]);
+              // console.log("THIS IS INTERESTING:", boxKey, value, attachProps.bodyOffset[boxKey], BBOX_PROP[boxKey]);
               styles[BBOX_PROP[boxKey]] = value +
                 (boxKey === 'x' || boxKey === 'y' ? attachProps.bodyOffset[boxKey] : 0) + 'px';
             }
